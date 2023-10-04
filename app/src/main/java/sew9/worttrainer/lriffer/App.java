@@ -3,8 +3,10 @@
  */
 package sew9.worttrainer.lriffer;
 import java.io.IOException;
+import java.util.*;
+import javax.swing.*;
+import java.net.*;
 
-import javax.swing.JOptionPane;
 /**
  * Klasse mit der Main Methode
  * @author Lili Riffer
@@ -13,39 +15,65 @@ import javax.swing.JOptionPane;
 public class App {
 
     public static void main(String[] args) {
-        String url ="https://elearning.tgm.ac.at";
-		WortListe l = new WortListe();
-		WortEintrag e = new WortEintrag("Elearning", url);
-		WortEintrag ei = new WortEintrag("Hund", "https://img.welt.de");
-		WortEintrag e1 = new WortEintrag("elearning", url);
-		WortEintrag ei1 = new WortEintrag("Hase", "https://img.welt.de");
-		WortEintrag e2 = new WortEintrag("hallo", url);
-		WortEintrag ei2 = new WortEintrag("Katze", "https://img.welt.de");
-		l.addWort(e);
-		l.addWort(ei);
-		l.addWort(e1);
-		l.addWort(ei1);
-		l.addWort(e2);
-		l.addWort(ei2);
-		if(e.checkURL(url)==false) {
-            JOptionPane.showMessageDialog(null, "URL ist nicht sinnvoll", "ERROR", JOptionPane.ERROR_MESSAGE);
-		}else {
-			JOptionPane.showInputDialog(null, e.toString());
-		}
-		WortTrainer t = new WortTrainer(l);
-		boolean a = l.WortDelete("vlt");
-		boolean b = t.check("hund");
-		boolean c = t.checkIgnoreCase("ELEarNinG");
-		int versuch = Integer.parseInt(JOptionPane.showInputDialog(null, "Wie viele Versuche soll man haben?"));
-		int richtig = 0;
-		SpeichernLaden sl = new SpeichernLaden(l, versuch, richtig);
-		sl.update(versuch, richtig);
-		try {
-            sl.speichern();
-        } catch (IOException e3) {
-            JOptionPane.showMessageDialog(null, e3.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-		System.out.println("WortListe, GesuchtesWort: "+l.findEintrag(0)+"\nKonnt ich das wort \"vlt\" löschen? "+a+"\nWorttrainer; zufälliges Wort: "+t.zufallsWort()+"\nAktuelles Wort: "+t.aktuellWort()+"\nIst dieses Wort in der Liste? "+b+"\nDasselbe, es ignoriert aber die groß/kleinschreibung: "+c );
-	}
+         //Worteintrag
+         WortEintrag we1 = new WortEintrag("Hund", "https://assets.elanco.com/8e0bf1c2-1ae4-001f-9257-f2be3c683fb1/7ae66d97-8aaa-43c2-a9a9-8a0ede30a1be/labrador_retriever_liegt_bei_sonnenschein_im_park.jpg");
+         WortEintrag we2 = new WortEintrag("Haus", "https://www.snoozeproject.de/files/uploads/2021/12/Traumdeutung-Haus.jpg");
+         WortEintrag we3 = new WortEintrag("Apfel", "https://images.eatsmarter.de/sites/default/files/styles/576x432/public/apfel-576x432.jpg");
+ 
+         //Wortliste
+         WortListe wl1 = new WortListe();
+         wl1.addWort(we1);
+         wl1.addWort(we2);
+         wl1.addWort(we3);
+ 
+         //Worttrainer
+         WortTrainer wt = new WortTrainer(wl1);
+         SpeichernLaden sl = new SpeichernLaden(wt);
+         try {
+             sl.laden();
+         } catch (IOException e) {
+             System.out.println("Laden fehlgeschlagen");
+         }
+ 
+         String antwort = "", versuchDavor = "Erster Versuch";
+         ImageIcon ii;
+ 
+         Random r = new Random();
+         boolean  wortRichtig = false, spielBeendet = false;
+ 
+         while(!spielBeendet) {
+             WortEintrag neuesWort = wt.getWortListe().getEintragArray()[r.nextInt(wt.getWortListe().getEintragArray().length)];
+             do{
+                 try {
+                     ii = new ImageIcon(new URL(neuesWort.getUrl()));
+                     JOptionPane.showMessageDialog(null, wt.getRight()+"/"+wt.getWrong()+" Richtig erraten\nVersuch davor: "+versuchDavor+"\nMerk dir das Bild: ", "Display Image", JOptionPane.INFORMATION_MESSAGE, ii);
+                     antwort = JOptionPane.showInputDialog(null, "Was war auf dem Bild zu sehen?");
+                 } catch (Exception e) {
+                     System.out.println("Fehler beim Bild anzeigen");
+                 }
+                 if(antwort.equals("")){
+                     try {
+                         sl.speichern();
+                     } catch (IOException e) {
+                         System.out.println("Fehler beim speichern");
+                     }
+                     spielBeendet = true;
+                     break;
+                 }
+                 if(antwort.equals(neuesWort.getWort())) {
+                     JOptionPane.showMessageDialog(null, "Richtig :)");
+                     wt.addRight(1);
+                     wortRichtig = true;
+                     versuchDavor = "Richtig";
+                 } else {
+                     JOptionPane.showMessageDialog(null, "Falsch :(");
+                     wt.addWrong(1);
+                     wortRichtig = false;
+                     versuchDavor = "Falsch";
+                 }
+             }while(!wortRichtig);
+         }
+         JOptionPane.showMessageDialog(null, wt.getFehlerQuote());
+     }
 }
 

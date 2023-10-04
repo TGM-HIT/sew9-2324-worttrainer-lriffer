@@ -30,8 +30,7 @@ public class SpeichernLaden {
 	 */
 	public void speichern(String filename) throws IOException{
 		File f = new File(filename);
-		BufferedWriter writer = null;
-		writer = new FileWriter(new FileWriter(filename));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(f));
 		writer.write(System.lineSeparator());
 		writer.close();
 	}
@@ -50,19 +49,15 @@ public class SpeichernLaden {
 	 * @throws IOException
 	 */
 	public void laden(String filename) throws IOException {
-		if(new File(filename).exists()) {
-			try(Scanner scan = new Scanner(new BufferedReader(new FileReader(filename)))) {
-				if(scan.hasNext()) {
-					this.versuch = Integer.parseInt(scan.next());
-				}
-				if(scan.hasNext()) {
-					this.wvRichtig = Integer.parseInt(scan.next());
-				}
-			}
-			catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Fehler beim Lesen: " + e.toString());
-			}
-		}
+		Scanner reader = new Scanner(new BufferedReader(new FileReader(file)));
+        try {
+            int right = Integer.parseInt(reader.nextLine());
+            int wrong = Integer.parseInt(reader.nextLine());
+            this.trainer.setRight(right);
+            this.trainer.setWrong(wrong);
+        } finally {
+            reader.close();
+        }
 	}
 	/**
 	 * Lädt die datei mit einem angegebenen speicherort

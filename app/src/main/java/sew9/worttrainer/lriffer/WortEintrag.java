@@ -20,10 +20,10 @@ public class WortEintrag {
 	 * @param u url
 	 */
 	public WortEintrag(String w, String u) {
-		this.wort = w;
-		if(WortEintrag.checkURL(u)==true) {
-			this.url = u;	
-		}
+		if(checkURL(u)==true){
+            this.url = u;
+        }
+        this.wort =w;
 	}
     /**
 	 * überprüft, ob es eine sinnvolle url ist, wenn
@@ -79,7 +79,7 @@ public class WortEintrag {
 			this.url = u;
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Die die URL ist ungültig!", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Die URL ist ungültig!", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	/**

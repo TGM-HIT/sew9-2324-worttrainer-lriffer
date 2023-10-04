@@ -50,6 +50,38 @@ public class WortTrainer {
     }
 
     /**
+     * Setter für richtige Antworten
+     * @param zahl zahl, auf die gesettet werden soll
+     */
+    public void setRight(int zahl){
+        this.right = zahl;
+    }
+
+    /**
+     * Setter für falsche Antworten
+     * @param zahl zahl, auf die gesettet werden soll
+     */
+    public void setWrong(int zahl){
+        this.wrong = zahl;
+    }
+
+    /**
+     * addiert zahl zu ergebnis
+     * @param zahl zahl, die dazuaddiert werden soll
+     */
+    public void addRight(int zahl){
+        this.right+=zahl;
+    }
+
+    /**
+     * addiert zahl zu ergebnis
+     * @param zahl zahl, die dazuaddiert werden soll
+     */
+    public void addWrong(int zahl){
+        this.wrong+=zahl;
+    }
+
+    /**
      * Getter für richtige antworten
      * @return wie viele richtige fragen beantwortet wurden
      */
@@ -80,6 +112,10 @@ public class WortTrainer {
 	public WortEintrag getWort(int index) {
 		return this.list.getEintrag(index);
 	}
+
+    public WortListe getWortListe(){
+        return this.list;
+    }
 
 	/**
 	 * schaut ob die zwei wörter übereinstimmen

@@ -9,12 +9,14 @@ import java.util.Arrays;
 public class WortListe {
     
 	private WortEintrag[] eintraege;
+
 	/**
 	 * Konstruktor ohne parameter
 	 */
 	public WortListe() {
 		this.eintraege = new WortEintrag[0];
 	}
+
 	/**
 	 * Konstruktor mit parameter
 	 * @param maxWoerter maximale 
@@ -23,6 +25,7 @@ public class WortListe {
 	public WortListe(int maxWoerter) {
 		this.eintraege= new WortEintrag[maxWoerter];
 	}
+
 	/**
 	 * fügt ein worteintrag dazu
 	 * @param a das neue wort
@@ -42,6 +45,7 @@ public class WortListe {
 		}
 		return added;
 	}
+
 	/**
 	 * gibt den entsprechenden worteintrag zurück
 	 * @param index index der übernommen wird um
@@ -59,10 +63,22 @@ public class WortListe {
 		return this.eintraege[0];
 		
 	}
+    /**
+     * Getter für die ganze Liste
+     * @return die Liste
+     */
     public WortEintrag[] getEintragArray(){
-
         return this.eintraege;
     }
+
+    /**
+	 * zeigt die länge
+	 * @return länge des arrays
+	 */
+	public int getLength() {
+		return eintraege.length;
+	}
+
 	/**
 	 * toString methode, sodass der WortEintrag
 	 * als eigene Zeile ausgegeben wird
@@ -76,6 +92,7 @@ public class WortListe {
 		}
 		return list;
 	}
+
 	/**
 	 * löscht ein wort
 	 * @param w das gelöscht wird
@@ -84,20 +101,13 @@ public class WortListe {
 	public boolean WortDelete(String w) {
 		for(int i = 0 ; i<eintraege.length; i++) {
 			if(eintraege[i]!=null) {
-				if(eintraege[i].equals(w)) {
+				if(eintraege[i].getWort().equals(w)) {
 					eintraege[i] = null;
 					return true;
 				}
 			}
 		}
 		return false;
-	}
-	/**
-	 * zeigt die länge
-	 * @return länge des arrays
-	 */
-	public int getLength() {
-		return eintraege.length;
 	}
 }
 
