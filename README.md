@@ -1,0 +1,1 @@
+Dies ist Der Worttrainer aus der 3. Klasse, nur bisschen überarbeitet (den Anforderungen entsprechend natürlich)
