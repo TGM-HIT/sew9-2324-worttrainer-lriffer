@@ -1,0 +1,118 @@
+package sew9.worttrainer.lriffer;
+import java.util.*;
+
+/**
+ * Klasse für einen Worttrainer
+ * @author Lili Riffer
+ * @version 04-10-2023
+ */
+public class WortTrainer {
+    
+	//Attribute
+	private WortListe list;
+	private int questions;
+    private int right;
+    private int wrong;
+
+	/**
+	 * konstruktor 
+	 * @param l die liste die man trainieren will
+	 */
+	public WortTrainer(WortListe l) {
+		this.list = l;
+        this.questions = 0;
+        this.right = 0;
+        this.wrong = 0;
+	}
+	
+    /**
+     * Getter für Fragen
+     * @return wie viele fragen beantwortet wurden
+     */
+    public int getQuestions(){
+        return this.questions;
+    }
+
+    /**
+     * Getter für falsche antworten
+     * @return wie viele falsche fragen beantwortet wurden
+     */
+    public int getWrong(){
+        return this.wrong;
+    }
+
+    /**
+     * Getter für richtige antworten
+     * @return wie viele richtige fragen beantwortet wurden
+     */
+    public int getRight(){
+        return this.right;
+    }
+
+    /**
+     * Getter für richtige antworten
+     * @return wie viele richtige fragen beantwortet wurden
+     */
+    public String getFehlerQuote(){
+        return new String("Von "+questions+" Fragen haben "+right+"/"+wrong+" gestimmt");
+    }
+    
+	/**
+	 * Zufälliger Worteintrag wird ausgewählt
+	 * @return zufälliger worteintrag 
+	 */
+	public WortEintrag getZufallsWort() {
+        Random random = new Random(this.list.getLength());
+        int r = random.nextInt(this.list.getLength());
+        for (int i = 0; i < this.list.getLength(); i++) {
+            if(this.list.getEintrag(r)!=null){
+                return this.list.getEintrag(r);
+            }
+        }
+		return null;
+	}
+
+	/**
+     * sucht sich ein bestimmtes wort mithilfe von index aus
+	 * @param index entsprechender index für das gewollte wort
+	 * @return worteintrag 
+	 */
+	public WortEintrag getWort(int index) {
+		return this.list.getEintrag(index);
+	}
+
+	/**
+	 * schaut ob die zwei wörter übereinstimmen
+	 * @param w wort welches mit dem ausgewählten verglichen wird 
+     * @param index womit wort ausgesucht wird
+	 * @return ob übereinstimmt oder nicht
+	 */
+	public boolean check(String w, int index) {
+        this.questions++;
+		if(this.list.getEintrag(index).getWort().equals(w)) {
+            this.right++;
+			return true;
+		}
+        this.wrong++;
+		return false;
+	}
+
+	/**
+	 * schaut ob zwei wörter übereinstimmen wobei 
+	 * groß/kleinschreibung ignoriert wird
+	 * @param w das verglichen wird
+	 * @return ob übereinstimmt oder nicht
+	 */
+	public boolean checkIgnoreCase(String w,int index) {
+        this.questions++;
+		if(this.list.getEintrag(index).getWort().toLowerCase().equals(w.toLowerCase())) {
+            this.right++;
+			return true;
+		}
+        this.wrong++;
+		return false;
+	}
+
+    
+}
+
