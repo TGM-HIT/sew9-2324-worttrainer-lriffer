@@ -36,6 +36,13 @@ public class WortTrainer {
      * Getter für Fragen
      * @return wie viele fragen beantwortet wurden
      */
+    public void addQuestions(int i){
+        this.questions = i;
+    }
+    /**
+     * Getter für Fragen
+     * @return wie viele fragen beantwortet wurden
+     */
     public void setQuestions(int i){
         this.questions = i;
     }
