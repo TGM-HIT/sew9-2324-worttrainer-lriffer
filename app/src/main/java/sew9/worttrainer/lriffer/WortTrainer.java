@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * Klasse für einen Worttrainer
  * @author Lili Riffer
- * @version 04-10-2023
+ * @version 05-10-2023
  */
 public class WortTrainer {
     
@@ -31,6 +31,13 @@ public class WortTrainer {
      */
     public int getQuestions(){
         return this.questions;
+    }
+    /**
+     * Getter für Fragen
+     * @return wie viele fragen beantwortet wurden
+     */
+    public void setQuestions(int i){
+        this.questions = i;
     }
 
     /**
