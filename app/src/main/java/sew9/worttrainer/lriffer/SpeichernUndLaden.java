@@ -1,5 +1,4 @@
 package sew9.worttrainer.lriffer;
-import javax.swing.*;
 import java.io.*;
 import java.util.Scanner;
 
@@ -61,7 +60,7 @@ public class SpeichernUndLaden {
 		File f = new File(filename);
 		BufferedWriter writer = null;
 		writer = new BufferedWriter(new FileWriter(f));
-		writer.write("Anzahl der Fragen: "+trainer.getQuestions() + System.lineSeparator() + "Richtige Antworten: "+trainer.getRight() + System.lineSeparator() + "Falsche Antworten: "+trainer.getWrong() + System.lineSeparator());
+		writer.write(trainer.getQuestions() + System.lineSeparator() +trainer.getRight() + System.lineSeparator() +trainer.getWrong() + System.lineSeparator());
 		writer.close();
 	}
 	/**
@@ -81,8 +80,10 @@ public class SpeichernUndLaden {
 	public void laden(String filename) throws IOException {
 		Scanner reader = new Scanner(new BufferedReader(new FileReader(filename)));
 		try {
+			int fragen = Integer.parseInt(reader.nextLine());
 			int richtige = Integer.parseInt(reader.nextLine());
 			int falsche = Integer.parseInt(reader.nextLine());
+			trainer.addQuestions(fragen);
 			trainer.addRight(richtige);
 			trainer.addWrong(falsche);		
 		} finally {
