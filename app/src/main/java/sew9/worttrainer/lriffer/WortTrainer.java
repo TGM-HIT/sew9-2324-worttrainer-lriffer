@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * Klasse für einen Worttrainer
  * @author Lili Riffer
- * @version 05-10-2023
+ * @version 08-10-2023
  */
 public class WortTrainer {
     
@@ -37,7 +37,7 @@ public class WortTrainer {
      * @return wie viele fragen beantwortet wurden
      */
     public void addQuestions(int i){
-        this.questions = i;
+        this.questions += i;
     }
     /**
      * Getter für Fragen
@@ -100,7 +100,7 @@ public class WortTrainer {
      * @return wie viele richtige fragen beantwortet wurden
      */
     public String getFehlerQuote(){
-        return new String("Von "+questions+" Fragen haben "+right+"/"+wrong+" gestimmt");
+        return new String("Von "+questions+" Fragen waren "+right+" richtig und "+wrong+" falsch");
     }
     
 	/**

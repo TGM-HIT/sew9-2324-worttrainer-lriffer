@@ -3,7 +3,7 @@ import java.util.Arrays;
 /**
  * Klasse für eine wortliste
  * @author Lili Riffer
- * @version 04-10-2023
+ * @version 08-10-2023
  */
 
 public class WortListe {

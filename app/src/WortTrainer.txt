@@ -1,9 +1,0 @@
-Versuche: 3
-Anzahl der richtigen Antworten: 0
-
-Elearning;https://elearning.tgm.ac.at
-Hund;https://img.welt.de
-elearning;https://elearning.tgm.ac.at
-Hase;https://img.welt.de
-hallo;https://elearning.tgm.ac.at
-Katze;https://img.welt.de

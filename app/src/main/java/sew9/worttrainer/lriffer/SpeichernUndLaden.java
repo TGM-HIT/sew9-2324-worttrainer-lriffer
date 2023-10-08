@@ -6,11 +6,11 @@ import java.util.Scanner;
 /**
  * Speichert und Lädt Worttrainer
  * @author Lili Riffer
- * @version 05-10-23
+ * @version 08-10-23
  */
 public class SpeichernUndLaden {
 	private WortTrainer trainer;
-	private String filename;
+	private String filename = "Worttrainer.txt";
 	
 	/**
 	 * Konstruktor mit parameter
@@ -59,29 +59,17 @@ public class SpeichernUndLaden {
 	 */
 	public void speichern(String filename) throws IOException{
 		File f = new File(filename);
-		FileWriter outputstream = null;
-		try {
-			outputstream = new FileWriter(f);
-			outputstream.write("Versuche: "+getTries());
-			outputstream.write(System.lineSeparator());
-			outputstream.write("Anzahl der richtigen Antworten: "+getTrue());
-			outputstream.write(System.lineSeparator());
-		}
-		catch (IOException e){
-			JOptionPane.showMessageDialog(null, "Fehler beim Speichern von: "+e);
-		}
-		finally {
-			if(outputstream != null) {
-				outputstream.close();
-			}
-		}
+		BufferedWriter writer = null;
+		writer = new BufferedWriter(new FileWriter(f));
+		writer.write("Anzahl der Fragen: "+trainer.getQuestions() + System.lineSeparator() + "Richtige Antworten: "+trainer.getRight() + System.lineSeparator() + "Falsche Antworten: "+trainer.getWrong() + System.lineSeparator());
+		writer.close();
 	}
 	/**
 	 * speichert das ergebnis in einem file, hat aber schon einen namen und kann nicht angegeben werden
 	 * @throws IOException falls etwas nicht gespeichert werden kann
 	 */
 	public void speichern() throws IOException{
-		speichern(filename);
+		speichern(this.filename);
 	}
 	
 	
@@ -91,18 +79,14 @@ public class SpeichernUndLaden {
 	 * @throws IOException
 	 */
 	public void laden(String filename) throws IOException {
-		if(new File(filename).exists()) {
-			try(Scanner scan = new Scanner(new BufferedReader(new FileReader(filename)))) {
-				if(scan.hasNext()) {
-					Integer.parseInt(scan.next());
-				}
-				if(scan.hasNext()) {
-					Integer.parseInt(scan.next());
-				}
-			}
-			catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Fehler beim Lesen: " + e.toString());
-			}
+		Scanner reader = new Scanner(new BufferedReader(new FileReader(filename)));
+		try {
+			int richtige = Integer.parseInt(reader.nextLine());
+			int falsche = Integer.parseInt(reader.nextLine());
+			trainer.addRight(richtige);
+			trainer.addWrong(falsche);		
+		} finally {
+			reader.close();
 		}
 	}
 	/**
@@ -110,6 +94,6 @@ public class SpeichernUndLaden {
 	 * @throws IOException
 	 */
 	public void laden() throws IOException {
-		laden(filename);
+		laden(this.filename);
 	}
 }

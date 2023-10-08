@@ -1,0 +1,3 @@
+Anzahl der Fragen: 19
+Richtige Antworten: 18
+Falsche Antworten: 1
