@@ -36,9 +36,10 @@ public class App {
         WortTrainer wt = new WortTrainer(wl);
 
         //speichern und laden deklarieren und versuchen zu laden
-        SpeichernUndLaden speichernladen = new SpeichernUndLaden(wt);
+        SpeichernUndLadenInterface speichern = new SpeichernLadenTxT(wt);
+        SpeichernUndLadenInterface laden = new SpeichernLadenTxT(wt);
         try {
-            speichernladen.laden();
+            laden.laden();
         } catch (IOException e) {
             System.out.println("laden misslungen");
         }
@@ -63,7 +64,7 @@ public class App {
                 //Wenn nicht geantwortet wurde soll speichern und das Programm aufhören
                 if(antwort.equals("")){
                     try {
-                        speichernladen.speichern();
+                        speichern.speichern();
                     } catch (IOException e) {
                         System.out.println("Speichern fehlgeschlagen");
                     }

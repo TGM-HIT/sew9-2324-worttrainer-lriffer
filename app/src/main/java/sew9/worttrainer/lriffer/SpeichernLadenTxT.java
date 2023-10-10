@@ -1,7 +1,9 @@
 package sew9.worttrainer.lriffer;
 import java.io.*;
+import java.util.Scanner;
 
-public class Speichern {
+public class SpeichernLadenTxT implements SpeichernUndLadenInterface{
+
     private WortTrainer trainer;
 	private String filename = "Worttrainer.txt";
     
@@ -9,7 +11,7 @@ public class Speichern {
      * Konstruktor
      * @param t Trainer was übernommen wird
      */
-    public Speichern(WortTrainer t){
+    public SpeichernLadenTxT(WortTrainer t){
         this.trainer = t;
     }
 
@@ -57,11 +59,39 @@ public class Speichern {
 		writer.write(trainer.getQuestions() + System.lineSeparator() +trainer.getRight() + System.lineSeparator() +trainer.getWrong() + System.lineSeparator());
 		writer.close();
 	}
+    
 	/**
 	 * speichert das ergebnis in einem file, hat aber schon einen namen und kann nicht angegeben werden
 	 * @throws IOException falls etwas nicht gespeichert werden kann
 	 */
 	public void speichern() throws IOException{
 		speichern(this.filename);
+	}
+
+    /**
+	 * Lädt die datei mit einem übernommenen speicherort
+	 * @param filename Filename wird übergeben
+	 * @throws IOException
+	 */
+    public void laden(String filename) throws IOException {
+		Scanner reader = new Scanner(new BufferedReader(new FileReader(filename)));
+		try {
+			int fragen = Integer.parseInt(reader.nextLine());
+			int richtige = Integer.parseInt(reader.nextLine());
+			int falsche = Integer.parseInt(reader.nextLine());
+			trainer.addQuestions(fragen);
+			trainer.addRight(richtige);
+			trainer.addWrong(falsche);		
+		} finally {
+			reader.close();
+		}
+	}
+
+	/**
+	 * Lädt die datei mit einem angegebenen speicherort
+	 * @throws IOException
+	 */
+	public void laden() throws IOException {
+		laden(this.filename);
 	}
 }

@@ -15,7 +15,7 @@ class WorttrainerTest {
     @Test void LadenTest() {
         WortListe wortliste = new WortListe();
         WortTrainer trainer = new WortTrainer(wortliste);
-        SpeichernUndLaden speichernladen = new SpeichernUndLaden(trainer);
+        SpeichernUndLadenInterface speichernladen = new SpeichernLadenTxT(trainer);
         try {
             speichernladen.laden("LadenTest.txt");
         } catch (IOException e) {
@@ -35,7 +35,7 @@ class WorttrainerTest {
         trainer.addQuestions(7);
         trainer.addRight(2);
         trainer.addWrong(5);
-        SpeichernUndLaden speichernladen = new SpeichernUndLaden(trainer);
+        SpeichernUndLadenInterface speichernladen = new SpeichernLadenTxT(trainer);
         try {
             speichernladen.speichern("SpeichernTest.txt");
         } catch (IOException e) {
@@ -53,7 +53,7 @@ class WorttrainerTest {
         trainer.addRight(2);
         trainer.addWrong(5);
         int richtig=0, falsch = 0, fragen = 0;
-        SpeichernUndLaden speichernladen = new SpeichernUndLaden(trainer);
+        SpeichernUndLadenInterface speichernladen = new SpeichernLadenTxT(trainer);
         try {
             speichernladen.speichern("SpeichernUndLadenTest.txt");
             fragen = trainer.getQuestions();
